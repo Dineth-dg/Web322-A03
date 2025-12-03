@@ -324,7 +324,7 @@ app.post("/tasks/complete/:id", requireLogin, async (req, res) => {
 });
 
 // ------------------ DELETE TASK ------------------
-app.get("/tasks/delete/:id", requireLogin, async (req, res) => {
+app.post("/tasks/delete/:id", requireLogin, async (req, res) => {
   const task = await Task.findOne({
     where: { id: req.params.id, userId: req.session.user.id },
   });
@@ -334,6 +334,7 @@ app.get("/tasks/delete/:id", requireLogin, async (req, res) => {
   await task.destroy();
   res.redirect("/dashboard");
 });
+
 
 // ------------------ LOGOUT ------------------
 app.get("/logout", (req, res) => {
