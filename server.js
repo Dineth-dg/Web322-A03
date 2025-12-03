@@ -75,27 +75,7 @@ app.get("/register", (req, res) => {
   res.render("register");
 });
 
-// app.post("/register", requireLogin, async (req, res) => {
-//   const { username, email, password } = req.body;
 
-//   if (!username || !email || !password)
-//     return res.render("register", { message: "All fields required." });
-
-//   const exists = await User.findOne({ $or: [{ username }, { email }] });
-//   if (exists)
-//     return res.render("register", { message: "Username or email already exists." });
-
-//   const newUser = new User({ username, email, password });
-//   await newUser.save();
-
-//   req.session.user = {
-//     id: newUser._id,
-//     username: newUser.username,
-//     email: newUser.email,
-//   };
-
-//   res.redirect("/dashboard");
-// });
 
 app.post("/register", requireLogout,async (req, res) => {
   const { username, email, password } = req.body;
@@ -140,49 +120,6 @@ app.get("/login",  (req, res) => {
   res.render("login");
 });
 
-// app.post("/login", requireLogout, async (req, res) => {
-//   const { username, password } = req.body;
-
-//   const user = await User.findOne({ username });
-//   if (!user)
-//     return res.render("login", { message: "Invalid username or password." });
-
-//   const valid = await user.comparePassword(password);
-//   if (!valid)
-//     return res.render("login", { message: "Invalid username or password." });
-
-//   req.session.user = {
-//     id: user._id,
-//     username: user.username,
-//     email: user.email,
-//   };
-
-//   res.redirect("/dashboard");
-// });
-// app.post("/login", requireLogin, async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-
-//     const user = await User.findOne({ email });
-//     const valid = user && await user.comparePassword(password);
-
-//     if (!valid) {
-//       return res.render("login", { message: "Invalid username or password." });
-//     }
-
-//     req.session.user = {
-//       id: user._id,
-//       username: user.username,
-//       email: user.email,
-//     };
-
-//     return res.redirect("/dashboard");
-//   } catch (err) {
-//     console.error(err);
-//     res.render("login", { message: "Something went wrong. Try again." });
-//   }
-// });
-
 app.post("/login", requireLogout, async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -218,23 +155,6 @@ app.post("/login", requireLogout, async (req, res) => {
 });
 
 
-// ------------------ DASHBOARD ------------------
-// app.get("/dashboard", requireLogin, async (req, res) => {
-//   let tasks = await Task.findAll({
-//     where: { userId: req.session.user.id },
-//     order: [["createdAt", "DESC"]],
-//   });
-
-//   tasks = tasks.map(t => ({
-//     ...t.toJSON(),
-//     dueDate: t.dueDate ? new Date(t.dueDate) : null,
-//   }));
-
-//   res.render("dashboard", {
-//     user: req.session.user,
-//     tasks,
-//   });
-// });
 app.get("/dashboard", requireLogin, async (req, res) => {
   try {
     const tasks = await Task.findAll({
@@ -248,8 +168,8 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     }));
 
     res.render("dashboard", {
-      user: req.session.user,   // required by EJS
-      tasks: formattedTasks,    // required by EJS
+      user: req.session.user,   
+      tasks: formattedTasks,    
     });
   } catch (err) {
     console.error("Dashboard error:", err);

@@ -8,12 +8,12 @@ const sequelize = new Sequelize(process.env.POSTGRES_URI, {
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false, // for dev or cloud DB
+      rejectUnauthorized: false, 
     },
   },
 });
 
-// Test connection
+
 sequelize.authenticate()
   .then(() => console.log("✅ Postgres connected"))
   .catch((err) => console.error("❌ Postgres connection error:", err));
