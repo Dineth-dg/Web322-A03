@@ -181,7 +181,7 @@ app.get("/dashboard", requireLogin, async (req, res) => {
 
 // ------------------ ADD TASK ------------------
 app.get("/tasks/add", requireLogin, (req, res) => {
-  res.render("addTask", { user: req.session.user});
+  res.render("addtask", { user: req.session.user});
 });
 
 app.post("/tasks/add", requireLogin, async (req, res) => {
