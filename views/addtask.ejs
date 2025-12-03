@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Task</title>
+  <link href="/css/main.css" rel="stylesheet">
+</head>
+<body class="bg-base-200 min-h-screen flex items-center justify-center p-6">
+
+  <div class="bg-white rounded-lg shadow-md w-full max-w-md p-6">
+    <h1 class="text-2xl font-bold mb-4 text-center">Add New Task</h1>
+
+    <!-- Alert message -->
+    <% if (typeof message !== 'undefined' && message) { %>
+      <div role="alert" class="alert alert-error mb-4 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current mr-2" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span><%= message %></span>
+      </div>
+    <% } %>
+
+    <!-- Task form -->
+    <form action="/tasks/add" method="POST" class="space-y-4">
+      <div>
+        <label for="title" class="block mb-1 font-semibold">Title</label>
+        <input type="text" id="title" name="title" placeholder="Task title" required
+               class="input input-bordered w-full" />
+      </div>
+
+      <div>
+        <label for="description" class="block mb-1 font-semibold">Description</label>
+        <textarea id="description" name="description" placeholder="Task description"
+                  class="textarea textarea-bordered w-full"></textarea>
+      </div>
+
+      <div>
+        <label for="dueDate" class="block mb-1 font-semibold">Due Date</label>
+        <input type="date" id="dueDate" name="dueDate"
+               class="input input-bordered w-full" />
+      </div>
+
+      <div>
+        <label for="status" class="block mb-1 font-semibold">Status</label>
+        <select id="status" name="status" class="select select-bordered w-full">
+          <option value="pending" selected>Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full mt-2">Add Task</button>
+    </form>
+
+    <div class="mt-4 text-center">
+      <a href="/dashboard" class="link link-primary">Back to Dashboard</a>
+    </div>
+  </div>
+
+</body>
+</html>

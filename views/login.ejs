@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Login</title>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center bg-base-200">
+  <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-center mb-4">Login</h2>
+
+    <!-- Display error message if exists -->
+    <% if (typeof message !== 'undefined' && message) { %>
+      <p class="text-red-500 text-center mb-4"><%= message %></p>
+    <% } %>
+
+    <form action="/login" method="post" class="space-y-4">
+      <div>
+         <label class="block mb-1" for="username">Username</label>
+          <input id="username" name="username" type="text" required
+         class="input input-bordered w-full"
+         value="<%= typeof username !== 'undefined' ? username : '' %>" />
+      </div>
+      
+      <div>
+        <label class="block mb-1" for="password">Password</label>
+        <input id="password" name="password" type="password" required
+               class="input input-bordered w-full" />
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full">Login</button>
+    </form>
+
+    <p class="text-center mt-4 text-sm">
+      Don’t have an account? <a href="/register" class="link link-primary">Register here</a>
+    </p>
+  </div>
+</body>
+</html>

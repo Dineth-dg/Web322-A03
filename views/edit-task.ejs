@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body class="bg-base-200 min-h-screen p-6">
+
+  <div class="max-w-md mx-auto">
+
+    <!-- Header -->
+    <header class="mb-6">
+      <h1 class="text-2xl font-bold">Edit Task</h1>
+      <a href="/dashboard" class="btn btn-sm btn-secondary mt-2">Back to Dashboard</a>
+    </header>
+
+    <!-- Edit Task Form -->
+    <div class="card bg-base-100 shadow-md">
+      <div class="card-body">
+        <form action="/tasks/edit/<%= task.id %>" method="POST" class="space-y-4">
+
+          <!-- Task Title -->
+          <div>
+            <label for="title" class="label">
+              <span class="label-text">Title</span>
+            </label>
+            <input type="text" name="title" id="title" value="<%= task.title %>" 
+                   class="input input-bordered w-full" required>
+          </div>
+
+          <!-- Task Description -->
+          <div>
+            <label for="description" class="label">
+              <span class="label-text">Description</span>
+            </label>
+            <textarea name="description" id="description" 
+                      class="textarea textarea-bordered w-full" rows="4"><%= task.description %></textarea>
+          </div>
+
+          <!-- Task Status -->
+          <div>
+            <label for="status" class="label">
+              <span class="label-text">Status</span>
+            </label>
+            <select name="status" id="status" class="select select-bordered w-full" required>
+              <option value="Pending" <%= task.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+              <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+              <option value="Completed" <%= task.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+            </select>
+          </div>
+
+          <!-- Due Date -->
+          <div>
+            <label for="dueDate" class="label">
+              <span class="label-text">Due Date</span>
+            </label>
+            <input type="date" name="dueDate" id="dueDate" 
+                   value="<%= task.dueDate ? task.dueDate : '' %>" 
+                   class="input input-bordered w-full">
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex justify-end">
+            <button type="submit" class="btn btn-primary">Update Task</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
