@@ -38,7 +38,7 @@ app.use(
   clientSessions({
     cookieName: "session",
     secret: process.env.SESSION_SECRET || "secretkey",
-    duration: 24 * 60 * 60 * 1000,
+    duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000,
   })
 );
