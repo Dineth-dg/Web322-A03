@@ -324,15 +324,25 @@ app.post("/tasks/complete/:id", requireLogin, async (req, res) => {
 });
 
 // ------------------ DELETE TASK ------------------
-app.get("/tasks/delete/:id", requireLogin, async (req, res) => {
-  const task = await Task.findOne({
-    where: { id: req.params.id, userId: req.session.user.id },
-  });
-
-  if (!task) return res.redirect("/dashboard");
-
-  await task.destroy();
-  res.redirect("/dashboard");
+app.get('/tasks/delete/:id', ensureLogin, async (req, res) => {
+    const taskId = req.params.id;
+ 
+    try {
+        // find the task and ensure it belongs to the logged-in user
+        const task = await Task.findOne({
+            where: { id: taskId, userId: req.session.user.id }
+        });
+ 
+        if (!task) {
+            return res.redirect('/dashboard'); // task not found or not owned by user
+        }
+ 
+        await task.destroy(); // delete task
+        res.redirect('/dashboard');
+    } catch (err) {
+        console.error('Error deleting task:', err);
+        res.redirect('/dashboard');
+    }
 });
 
 // ------------------ LOGOUT ------------------
